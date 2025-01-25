@@ -17,9 +17,7 @@ const Chatpage = () => {
   const token = user?.token;
 
   useEffect(() => {
-
-    if (token){
-      
+    if (token) {
       socket = io(ENDPOINT, {
         transports: ["websocket", "polling"],
         secure: true,

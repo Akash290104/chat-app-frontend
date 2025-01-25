@@ -7,7 +7,7 @@ import GroupChatModal from "./miscellaneous/GroupChatModal";
 
 const MyChats = ({ fetchAgain, socket }) => {
   const [loggedUser, setLoggedUser] = useState();
-  const { user, chats, setChats } = ChatState();
+  const { user, chats, setChats, setSelectedChat } = ChatState();
 
   const fetchChats = useCallback(async () => {
     if (!user || !user?.token) {
@@ -41,6 +41,7 @@ const MyChats = ({ fetchAgain, socket }) => {
             chat._id === updatedChat._id ? updatedChat : chat
           )
         );
+        setSelectedChat(updatedChat)
       });
 
       socket.on("user was removed", (data) => {
@@ -82,6 +83,7 @@ const MyChats = ({ fetchAgain, socket }) => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
   }, [fetchAgain]);
+
   const [groupChatModal, setGroupChatModal] = useState(false);
 
   const showGroupChatModal = () => {
